@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+println 'This is executed during the configuration phase'
+
+tasks.register('configured'){
+    println 'This is also executed during the configuration phase, because :configured is used'
+}
+tasks.register('first'){
+    doLast{
+        println 'This is executed during the execution phase'
+    }
+}
+
+tasks.register('testBoth'){
+    doFirst {
+        println 'This is executed first during the execution phase.'
+    }
+    doLast {
+        println 'This is executed last during the execution phase.'
+    }
+    println 'This is executed during the configuration phase as well, because :testBoth is used in the build.'
+}
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'commons-cli:commons-cli:1.4'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation 'org.apache.commons:commons-lang3:3.13.0'
+    // https://mvnrepository.com/artifact/org.kie.modules/com-fasterxml-jackson
+//    implementation 'org.kie.modules:com-fasterxml-jackson:6.5.0.Final'
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-scala
+    implementation 'com.fasterxml.jackson.module:jackson-module-scala_3:2.15.2'
+}
